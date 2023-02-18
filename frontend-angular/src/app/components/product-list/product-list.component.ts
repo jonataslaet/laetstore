@@ -9,8 +9,11 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
   products: Product[] = [];
   currentCategoryId: number = 1;
+  searchMode: boolean = false;
+
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,6 +23,24 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
+    this.searchMode = this.activatedRoute.snapshot.paramMap.has('keyword');
+    if (this.searchMode) {
+      this.handleSearchProducts();
+    } else {
+      this.handleListProducts();
+    }
+  }
+
+  handleSearchProducts() {
+    const theKeyword: string = this.activatedRoute.snapshot.paramMap.get('keyword')!;
+    this.productService.searchProducts(theKeyword).subscribe(
+      data => {
+        this.products = data;
+      }
+    );
+  }
+
+  handleListProducts() {
     const hasCategoryId: boolean = this.activatedRoute.snapshot.paramMap.has('id');
 
     hasCategoryId ?
