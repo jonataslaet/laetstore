@@ -29,6 +29,22 @@ export class CartService {
     this.computeCartTotals();
   }
 
+  removeFromCart(theCartItem: CartItem) {
+    const itemIndex = this.cartItems.findIndex(currentCartItem => currentCartItem.id === theCartItem.id);
+    if (this.itemIndexExists(itemIndex)) {
+      this.removeItemByIndex(itemIndex);
+      this.computeCartTotals();
+    }
+  }
+
+  private removeItemByIndex(itemIndex: number) {
+    this.cartItems.splice(itemIndex, 1);
+  }
+
+  private itemIndexExists(itemIndex: number) {
+    return itemIndex > -1;
+  }
+
   computeCartTotals() {
     let totalPriceValue: number = 0.00;
     let totalQuantityValue: number = 0;
