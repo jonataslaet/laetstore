@@ -82,13 +82,11 @@
             </div>
           </div>
         </div>
-        <div class="input-space">
-          <label for="" class="au-checkbox">
-            <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
-            <!-- <span class="au-checkmark">Blling Address same as Shipping Address</span> -->
-          </label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" (change)="copyShippingAddressToBillingAddress($event)">
+          <label class="form-check-label">Billing Address same as Shipping Address</label>
         </div>
-        <div formGroupName="billingAddress" class="form-area">
+        <div formGroupName="billingAddress" class="form-area" style="margin-top: 40px;">
           <h3>Billing Address</h3>
           <div class="row">
             <div class="col-md-2"><label>Country</label></div>
